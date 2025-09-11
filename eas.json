@@ -1,13 +1,22 @@
 {
-  "cli": { "version": ">= 3.19.0", "appVersionSource": "remote" },
+  "cli": {
+    "version": ">= 3.19.0",
+    "appVersionSource": "remote"
+  },
   "build": {
     "preview-apk": {
-      "android": { "buildType": "apk" },
-      "distribution": "internal"
+      "android": {
+        "buildType": "apk"
+      },
+      "distribution": "internal",
+      "channel": "preview-apk"
     },
     "production": {
-      "android": { "buildType": "app-bundle" },
-      "distribution": "store"
+      "android": {
+        "buildType": "app-bundle"
+      },
+      "distribution": "store",
+      "channel": "production"
     }
   }
 }
