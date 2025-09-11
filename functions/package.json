@@ -1,0 +1,20 @@
+{
+  "name": "functions",
+  "private": true,
+  "description": "Firebase Functions (Gen2) — solo ping; thumbnail removido",
+  "engines": { "node": "20" },
+  "main": "lib/index.js",
+  "scripts": {
+    "build": "tsc -p .",
+    "deploy": "npm run build && firebase deploy --only functions --project mateo-vendedores",
+    "delete:old": "firebase functions:delete generatePdfThumbnail --project mateo-vendedores --force || true",
+    "logs": "firebase functions:log --only ping --project mateo-vendedores"
+  },
+  "dependencies": {
+    "firebase-admin": "^12.6.0",
+    "firebase-functions": "^5.1.1"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.2"
+  }
+}

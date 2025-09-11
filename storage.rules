@@ -1,0 +1,29 @@
+// storage.rules
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    // Admin por custom claim (desde Auth)
+    function isAdmin() {
+      return isSignedIn() && request.auth.token.admin == true;
+    }
+
+    // Carpeta principal que usa la app (ajustá si cambia)
+    match /documents/{path=**} {
+      // Lectura: cualquiera logueado
+      allow read: if isSignedIn();
+      // Escritura: solo admin
+      allow write: if isAdmin();
+    }
+
+    // Fallback para cualquier otra carpeta del bucket
+    match /{allPaths=**} {
+      allow read: if isSignedIn();
+      allow write: if isAdmin();
+    }
+  }
+}
