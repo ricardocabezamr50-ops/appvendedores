@@ -3,32 +3,32 @@
     "name": "Vendedores",
     "slug": "appvendedores",
     "owner": "riki2025",
-    "version": "1.0.0",
+    "version": "1.0.3",
     "orientation": "portrait",
+
     "icon": "assets/app-icon-legacy.png",
     "splash": {
       "image": "assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#FFFFFF"
     },
+
+    "updates": {
+      "url": "https://u.expo.dev/69e78497-0b1c-4653-a402-2d28a42bd3d4"
+    },
+    "runtimeVersion": { "policy": "appVersion" },
+
     "android": {
       "package": "com.riki2025.appvendedores",
+      "versionCode": 4,
       "adaptiveIcon": {
         "foregroundImage": "assets/app-icon-foreground.png",
         "backgroundColor": "#FFFFFF"
       }
     },
+
     "extra": {
-      "eas": {
-        "projectId": "69e78497-0b1c-4653-a402-2d28a42bd3d4"
-      }
-    },
-    "runtimeVersion": {
-      "policy": "appVersion"
-    },
-    "updates": {
-      "url": "https://u.expo.dev/69e78497-0b1c-4653-a402-2d28a42bd3d4"
-    },
-    "ios": {}
+      "eas": { "projectId": "69e78497-0b1c-4653-a402-2d28a42bd3d4" }
+    }
   }
 }
