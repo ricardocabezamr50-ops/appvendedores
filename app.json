@@ -1,37 +1,34 @@
 {
   "expo": {
-    "name": "Vendedores",
+    "name": "appvendedores",
     "slug": "appvendedores",
-    "owner": "riki2025",
-
-    "version": "1.0.4",
-    "orientation": "portrait",
-
-    "icon": "assets/images/icon.png",
-    "splash": {
-      "image": "assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#FFFFFF"
-    },
-
     "scheme": "appvendedores",
-
+    "version": "1.0.3",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": { "supportsTablet": true },
+    "android": {
+      "package": "com.riki2025.appvendedores",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      }
+    },
+    "experiments": { "typedRoutes": true },
+    "extra": {
+      "eas": {
+        "projectId": "69e78497-0b1c-4653-a402-2d28a42bd3d4"
+      }
+    },
     "updates": {
       "url": "https://u.expo.dev/69e78497-0b1c-4653-a402-2d28a42bd3d4"
     },
-    "runtimeVersion": { "policy": "appVersion" },
-
-    "android": {
-      "package": "com.riki2025.appvendedores",
-      "versionCode": 6,
-      "adaptiveIcon": {
-        "foregroundImage": "assets/images/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
-      }
-    },
-
-    "extra": {
-      "eas": { "projectId": "69e78497-0b1c-4653-a402-2d28a42bd3d4" }
-    }
+    "runtimeVersion": { "policy": "appVersion" }
   }
 }
