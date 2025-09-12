@@ -12,11 +12,15 @@
     "logs": "firebase functions:log --only ping --project mateo-vendedores"
   },
   "dependencies": {
+    "expo-router": "~5.1.6",
+    "expo-updates": "~0.28.17",
+    "firebase": "^12.2.1",
     "firebase-admin": "^12.6.0",
     "firebase-functions": "^5.1.1",
-    "expo-updates": "~0.28.17"
+    "react-native-reanimated": "~3.17.4"
   },
   "devDependencies": {
     "typescript": "^5.6.2"
-  }
+  },
+  "main": "expo-router/entry"
 }

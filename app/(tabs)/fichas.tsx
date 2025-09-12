@@ -2,23 +2,14 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { View, Text, FlatList, ActivityIndicator, TouchableOpacity, Image, Linking, StyleSheet } from 'react-native';
 import { initializeApp, getApp, getApps } from 'firebase/app';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import {
-  getFirestore, collection, query, orderBy, onSnapshot, where, doc
-} from 'firebase/firestore';
-import firebaseConfig from '../../firebase.config.json';
+import { getFirestore, collection, query, orderBy, onSnapshot, where, doc } from 'firebase/firestore';
+// @ts-ignore
+const firebaseConfig = require('../../firebase.config.json');
 
 type Doc = {
-  id: string;
-  title?: string;
-  subtitle?: string;
-  thumbnailUrl?: string;
-  pdfUrl?: string;
-  url?: string;
-  fileUrl?: string;
-  minLevel?: number;
-  group?: string;
-  category?: string;
-  type?: string;
+  id: string; title?: string; subtitle?: string; thumbnailUrl?: string;
+  pdfUrl?: string; url?: string; fileUrl?: string; minLevel?: number;
+  group?: string; category?: string; type?: string;
 };
 
 const app = getApps().length ? getApp() : initializeApp(firebaseConfig as any);
@@ -34,7 +25,6 @@ export default function FichasScreen() {
   const [loading, setLoading] = useState(true);
   const [err, setErr] = useState<string | null>(null);
 
-  // 1) Suscribirse al user doc y tomar SOLO datos que vengan del servidor
   useEffect(() => {
     const stopAuth = onAuthStateChanged(auth, (u) => {
       if (!u) { setLevel(0); return; }
@@ -43,11 +33,9 @@ export default function FichasScreen() {
         uref,
         { includeMetadataChanges: true },
         (snap) => {
-          // Ignorar snapshots que vienen sólo del caché y no tienen writes pendientes
           if (snap.metadata.fromCache && !snap.metadata.hasPendingWrites) return;
           const lvRaw = snap.exists() && typeof snap.data().level === 'number' ? snap.data().level : 0;
-          const lv = Math.max(0, Math.min(3, lvRaw));
-          setLevel(lv);
+          setLevel(Math.max(0, Math.min(3, lvRaw)));
         },
         () => setLevel(0)
       );
@@ -56,19 +44,16 @@ export default function FichasScreen() {
     return () => stopAuth();
   }, []);
 
-  // 2) Suscribirse a documents con where(minLevel <= level) y descartar snapshots de caché
   useEffect(() => {
     if (level === null) return;
     setLoading(true);
-
     const q = query(
       collection(db, 'documents'),
-      where('minLevel', '<=', level),
-      orderBy('minLevel', 'asc'),
-      orderBy('title', 'asc') // si no existe 'title' en todos, podés quitar esta línea y el índice
+      where('minLevel','<=', level),
+      orderBy('minLevel','asc'),
+      orderBy('title','asc')
     );
-
-    const stopDocs = onSnapshot(
+    const stop = onSnapshot(
       q,
       { includeMetadataChanges: true },
       (snap) => {
@@ -78,11 +63,9 @@ export default function FichasScreen() {
       },
       (e) => { setErr(e?.message ?? 'Error desconocido'); setLoading(false); }
     );
-
-    return () => stopDocs();
+    return () => stop();
   }, [level]);
 
-  // 3) Filtro opcional por categoría en memoria
   const data = useMemo(() => {
     if (!FILTER_VALUE) return all;
     const field = FILTER_FIELD_PRIORITY.find(f => all.some(r => (r as any)[f] != null));

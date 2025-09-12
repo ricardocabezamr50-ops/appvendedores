@@ -2,10 +2,9 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { View, Text, FlatList, ActivityIndicator, TouchableOpacity, Image, Linking, StyleSheet } from 'react-native';
 import { initializeApp, getApp, getApps } from 'firebase/app';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import {
-  getFirestore, collection, query, orderBy, onSnapshot, where, doc
-} from 'firebase/firestore';
-import firebaseConfig from '../../firebase.config.json';
+import { getFirestore, collection, query, orderBy, onSnapshot, where, doc } from 'firebase/firestore';
+// @ts-ignore
+const firebaseConfig = require('../../firebase.config.json');
 
 type Doc = {
   id: string; title?: string; subtitle?: string; thumbnailUrl?: string;
