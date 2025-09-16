@@ -2,12 +2,11 @@
   "expo": {
     "name": "Mateo Vendedores",
     "slug": "appvend",
-    "version": "1.0.12",
+    "version": "1.0.13",                 // ← súbelo 1
+    "runtimeVersion": { "policy": "appVersion" },
     "android": {
-      "package": "com.mateo.vendedores",      // <-- tu paquete único
-      "versionCode": 12,                       // <-- ¡subí 1 respecto al anterior!
-      "adaptiveIcon": { "foregroundImage": "./assets/adaptive-icon.png", "backgroundColor": "#FFFFFF" }
-    },
-    "ios": { "bundleIdentifier": "com.mateo.vendedores" }
+      "versionCode": 13                  // ← súbelo 1
+      /* Nota: si tienes carpeta android/, el package se toma de android/app/build.gradle */
+    }
   }
 }
