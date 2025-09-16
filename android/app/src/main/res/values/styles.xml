@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <!-- Tema de la app después del splash -->
+  <style name="AppTheme" parent="Theme.Material3.DayNight.NoActionBar" />
+
+  <!-- Splash fallback para APIs < 31 -->
+  <style name="Theme.App.SplashScreen" parent="Theme.Material3.DayNight.NoActionBar">
+    <item name="android:windowBackground">@drawable/splashscreen</item>
+  </style>
+</resources>

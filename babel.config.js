@@ -2,6 +2,9 @@ module.exports = function (api) {
   api.cache(true);
   return {
     presets: ['babel-preset-expo'],
-    // NO agregar el plugin de reanimated acá
+    plugins: [
+      // ⚠️ SIEMPRE último:
+      'react-native-worklets/plugin',
+    ],
   };
 };

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Splash (tenemos ambos nombres para cubrir referencias distintas) -->
+    <color name="splash_background">#FFFFFF</color>
+    <color name="splashscreen_background">#FFFFFF</color>
+
+    <!-- Colores para el adaptive icon -->
+    <color name="iconBackground">#FFFFFF</color>
+    <!-- No siempre se usa como color, pero lo dejamos por si acaso -->
+    <color name="iconForeground">#000000</color>
+</resources>

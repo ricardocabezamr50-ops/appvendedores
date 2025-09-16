@@ -1,0 +1,84 @@
+plugins {
+    id "com.android.application"
+    id "org.jetbrains.kotlin.android"
+    id "com.facebook.react"
+    // NO usar: id "expo"
+    // NO usar: id "com.google.gms.google-services" (a menos que uses Firebase nativo)
+}
+
+def appVersionCode = 1
+def appVersionName = "1.0.0"
+
+android {
+    namespace "com.riki2025.appvendedores"
+    compileSdkVersion 36
+
+    defaultConfig {
+        applicationId "com.riki2025.appvendedores"
+        minSdkVersion 24
+        targetSdkVersion 36
+
+        versionCode appVersionCode
+        versionName appVersionName
+
+        multiDexEnabled true
+    }
+
+    signingConfigs {
+        debug { }
+        release {
+            if (project.hasProperty("MYAPP_UPLOAD_STORE_FILE")) {
+                storeFile file(MYAPP_UPLOAD_STORE_FILE)
+                storePassword MYAPP_UPLOAD_STORE_PASSWORD
+                keyAlias MYAPP_UPLOAD_KEY_ALIAS
+                keyPassword MYAPP_UPLOAD_KEY_PASSWORD
+            }
+        }
+    }
+
+    buildTypes {
+        debug { signingConfig signingConfigs.debug }
+        release {
+            signingConfig signingConfigs.release
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'),
+                          'proguard-rules.pro'
+        }
+    }
+
+    packagingOptions {
+        jniLibs { useLegacyPackaging = true }
+        resources { excludes += ["META-INF/*"] }
+    }
+
+    buildFeatures { buildConfig true }
+}
+
+dependencies {
+    // UI base
+    implementation "androidx.appcompat:appcompat:1.7.0"
+    implementation "com.google.android.material:material:1.12.0"
+    // attrs de Splash (windowSplashScreenBackground / postSplashScreenTheme)
+    implementation "androidx.core:core-splashscreen:1.0.1"
+}
+
+/** ---------- AUTOLINKING React Native ---------- */
+def rnCliCommunity = file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle")
+def rnCliNew = file("../../node_modules/@react-native/cli-platform-android/native_modules.gradle")
+
+if (rnCliCommunity.exists()) {
+    apply from: rnCliCommunity
+} else if (rnCliNew.exists()) {
+    apply from: rnCliNew
+} else {
+    throw new GradleException(
+        "No se encontró el script de autolinking de RN.\n" +
+        "Asegurate de ejecutar: npm i -D @react-native-community/cli @react-native-community/cli-platform-android"
+    )
+}
+
+// Solo llamamos a la función si fue aplicada por el script anterior
+if (project.ext.has("applyNativeModulesAppBuildGradle")) {
+    applyNativeModulesAppBuildGradle(project)
+}

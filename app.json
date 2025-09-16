@@ -1,42 +1,13 @@
 {
   "expo": {
-    "name": "appvendedores",
-    "slug": "appvendedores",
-    "scheme": "appvendedores",
-    "version": "1.0.0",
-    "runtimeVersion": "1.0.0",
-
-    "icon": "./assets/icon.png",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
+    "name": "Mateo Vendedores",
+    "slug": "appvend",
+    "version": "1.0.12",
     "android": {
-      "package": "com.riki2025.appvendedores",
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      }
+      "package": "com.mateo.vendedores",      // <-- tu paquete único
+      "versionCode": 12,                       // <-- ¡subí 1 respecto al anterior!
+      "adaptiveIcon": { "foregroundImage": "./assets/adaptive-icon.png", "backgroundColor": "#FFFFFF" }
     },
-    "ios": {
-      "bundleIdentifier": "com.riki2025.appvendedores"
-    },
-
-    "updates": {
-      "url": "https://u.expo.dev/69e78497-0b1c-4653-a402-2d28a42bd3d4",
-      "checkAutomatically": "ON_LOAD",
-      "fallbackToCacheTimeout": 0
-    },
-    "extra": {
-      "eas": {
-        "projectId": "69e78497-0b1c-4653-a402-2d28a42bd3d4"
-      }
-    },
-    "cli": {
-      "appVersionSource": "local"
-    },
-    "assetBundlePatterns": ["**/*"],
-    "assets": ["./assets/**"]
+    "ios": { "bundleIdentifier": "com.mateo.vendedores" }
   }
 }

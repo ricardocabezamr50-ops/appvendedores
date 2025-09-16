@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <style name="Theme.App.SplashScreen" parent="Theme.Material3.DayNight.NoActionBar">
+    <!-- OBLIGATORIO con prefijo android: -->
+    <item name="android:windowBackground">@drawable/splashscreen</item>
+    <item name="android:windowSplashScreenBackground">@color/splash_background</item>
+
+    <!-- Atributo de AndroidX core-splashscreen (sin prefijo android) -->
+    <item name="postSplashScreenTheme">@style/AppTheme</item>
+
+    <!-- Opcional: icono animado del splash
+    <item name="android:windowSplashScreenAnimatedIcon">@mipmap/ic_launcher</item>
+    -->
+  </style>
+</resources>

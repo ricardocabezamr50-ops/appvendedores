@@ -9,27 +9,42 @@
     "build": "tsc -p .",
     "deploy": "npm run build && firebase deploy --only functions --project mateo-vendedores",
     "delete:old": "firebase functions:delete generatePdfThumbnail --project mateo-vendedores --force || true",
-    "logs": "firebase functions:log --only ping --project mateo-vendedores"
+    "logs": "firebase functions:log --only ping --project mateo-vendedores",
+    "android": "expo run:android",
+    "ios": "expo run:ios"
   },
   "dependencies": {
     "@expo/vector-icons": "^15.0.2",
     "@react-native-async-storage/async-storage": "2.2.0",
+    "expo": "~54.0.2",
     "expo-file-system": "~19.0.12",
     "expo-router": "~5.1.6",
     "expo-sharing": "~14.0.7",
+    "expo-status-bar": "~3.0.8",
     "expo-updates": "~0.28.17",
     "firebase": "^12.2.1",
     "firebase-admin": "^12.6.0",
     "firebase-functions": "^5.1.1",
     "react": "19.1.0",
-    "react-native": "0.81.4"
+    "react-native": "0.81.4",
+    "react-native-gesture-handler": "~2.28.0",
+    "react-native-reanimated": "~4.1.0",
+    "react-native-safe-area-context": "~5.6.0",
+    "react-native-screens": "~4.16.0"
   },
   "devDependencies": {
+    "@react-native-community/cli": "^20.0.2",
+    "@react-native-community/cli-platform-android": "^20.0.2",
+    "@react-native/metro-config": "^0.81.1",
     "@types/react": "~19.1.10",
+    "babel-plugin-module-resolver": "^5.0.2",
+    "metro": "^0.83.1",
+    "react-native-worklets": "^0.5.1",
     "typescript": "^5.6.2"
   },
   "main": "expo-router/entry",
   "overrides": {
     "react": "19.1.0"
-  }
+  },
+  "version": "1.0.0"
 }
