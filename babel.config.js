@@ -3,8 +3,8 @@ module.exports = function (api) {
   return {
     presets: ['babel-preset-expo'],
     plugins: [
-      // ⚠️ SIEMPRE último:
-      'react-native-worklets/plugin',
+      // (otros plugins si tenés)
+      'react-native-reanimated/plugin',
     ],
   };
 };

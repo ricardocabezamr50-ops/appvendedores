@@ -6,11 +6,13 @@ plugins {
     // NO usar: id "com.google.gms.google-services" (a menos que uses Firebase nativo)
 }
 
-def appVersionCode = 1
-def appVersionName = "1.0.0"
+// === Versionado de la app ===
+def appVersionCode = 13
+def appVersionName = "1.0.13"
 
 android {
     namespace "com.riki2025.appvendedores"
+
     compileSdkVersion 36
 
     defaultConfig {
@@ -24,9 +26,19 @@ android {
         multiDexEnabled true
     }
 
+    // Java/Kotlin 17 (AGP 8.x)
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+    kotlinOptions {
+        jvmTarget = "17"
+    }
+
     signingConfigs {
         debug { }
         release {
+            // Toma credenciales de gradle.properties
             if (project.hasProperty("MYAPP_UPLOAD_STORE_FILE")) {
                 storeFile file(MYAPP_UPLOAD_STORE_FILE)
                 storePassword MYAPP_UPLOAD_STORE_PASSWORD
@@ -37,13 +49,14 @@ android {
     }
 
     buildTypes {
-        debug { signingConfig signingConfigs.debug }
+        debug {
+            signingConfig signingConfigs.debug
+        }
         release {
             signingConfig signingConfigs.release
             minifyEnabled true
             shrinkResources true
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'),
-                          'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
 
@@ -51,34 +64,18 @@ android {
         jniLibs { useLegacyPackaging = true }
         resources { excludes += ["META-INF/*"] }
     }
-
-    buildFeatures { buildConfig true }
 }
 
 dependencies {
-    // UI base
+    // Necesario para el tema AppCompat sin ActionBar
     implementation "androidx.appcompat:appcompat:1.7.0"
-    implementation "com.google.android.material:material:1.12.0"
-    // attrs de Splash (windowSplashScreenBackground / postSplashScreenTheme)
+
+    // SplashScreen moderno (Android 12+)
     implementation "androidx.core:core-splashscreen:1.0.1"
-}
 
-/** ---------- AUTOLINKING React Native ---------- */
-def rnCliCommunity = file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle")
-def rnCliNew = file("../../node_modules/@react-native/cli-platform-android/native_modules.gradle")
+    // Multidex (ya que multiDexEnabled = true)
+    implementation "androidx.multidex:multidex:2.0.1"
 
-if (rnCliCommunity.exists()) {
-    apply from: rnCliCommunity
-} else if (rnCliNew.exists()) {
-    apply from: rnCliNew
-} else {
-    throw new GradleException(
-        "No se encontró el script de autolinking de RN.\n" +
-        "Asegurate de ejecutar: npm i -D @react-native-community/cli @react-native-community/cli-platform-android"
-    )
-}
-
-// Solo llamamos a la función si fue aplicada por el script anterior
-if (project.ext.has("applyNativeModulesAppBuildGradle")) {
-    applyNativeModulesAppBuildGradle(project)
+    // (Opcional) Si usas componentes Material en layouts nativos:
+    // implementation "com.google.android.material:material:1.12.0"
 }
