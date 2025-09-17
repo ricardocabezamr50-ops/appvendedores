@@ -13,12 +13,12 @@ def appVersionName = "1.0.13"
 android {
     namespace "com.riki2025.appvendedores"
 
-    compileSdkVersion 36
+    compileSdkVersion 35
 
     defaultConfig {
         applicationId "com.riki2025.appvendedores"
         minSdkVersion 24
-        targetSdkVersion 36
+        targetSdkVersion 35
 
         versionCode appVersionCode
         versionName appVersionName
