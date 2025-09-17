@@ -12,3 +12,8 @@ keystore.properties
 *.apk
 *.aab
 .env
+dist/
+web-build/
+build/
+*.zip
+functions.zip
