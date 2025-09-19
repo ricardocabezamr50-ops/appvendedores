@@ -1,0 +1,72 @@
+﻿diff --git a/android/app/src/debug/AndroidManifest.xml b/android/app/src/debug/AndroidManifest.xml
+new file mode 100644
+index 0000000..9b2cd11
+--- /dev/null
++++ b/android/app/src/debug/AndroidManifest.xml
+@@ -0,0 +1,22 @@
++<?xml version="1.0" encoding="utf-8"?>
++<manifest xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:tools="http://schemas.android.com/tools">
++    <!-- Remueve permisos legacy que rompen con target 33+ -->
++    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" tools:node="remove"/>
++    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" tools:node="remove"/>
++    <!-- Android 13+ permisos granulares -->
++    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES"/>
++    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO"/>
++    <uses-permission android:name="android.permission.READ_MEDIA_AUDIO"/>
++    <!-- Compat < 33 si tu minSdk <= 32 -->
++    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="32"/>
++</manifest>
+diff --git a/android/app/src/release/AndroidManifest.xml b/android/app/src/release/AndroidManifest.xml
+new file mode 100644
+index 0000000..7b2cd12
+--- /dev/null
++++ b/android/app/src/release/AndroidManifest.xml
+@@ -0,0 +1,20 @@
++<?xml version="1.0" encoding="utf-8"?>
++<manifest xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:tools="http://schemas.android.com/tools">
++    <!-- Asegura que en release tampoco entren los legacy -->
++    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" tools:node="remove"/>
++    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" tools:node="remove"/>
++    <!-- Android 13+ permisos granulares (ajustá a lo que uses de verdad) -->
++    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES"/>
++    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO"/>
++    <uses-permission android:name="android.permission.READ_MEDIA_AUDIO"/>
++    <!-- Compat < 33 si corresponde -->
++    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="32"/>
++</manifest>
+diff --git a/.github/workflows/android-debug.yml b/.github/workflows/android-debug.yml
+new file mode 100644
+index 0000000..c0ffee1
+--- /dev/null
++++ b/.github/workflows/android-debug.yml
+@@ -0,0 +1,45 @@
++name: Android Debug
++
++on:
++  push:
++    branches: [ main, develop, feature/**, fix/** ]
++  pull_request:
++
++jobs:
++  build:
++    runs-on: windows-latest
++    steps:
++      - uses: actions/checkout@v4
++      - uses: actions/setup-java@v4
++        with:
++          distribution: temurin
++          java-version: '17'
++      - uses: actions/setup-node@v4
++        with:
++          node-version: '20'
++          cache: 'npm'
++      - name: Install deps
++        run: npm ci --no-audit --no-fund
++      - name: Configure local.properties
++        run: |
++          echo sdk.dir=%LOCALAPPDATA%\\Android\\Sdk > android\\local.properties
++      - name: Build Debug
++        working-directory: android
++        run: .\\gradlew.bat assembleDebug --no-daemon --warning-mode all
