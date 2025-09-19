@@ -1,4 +1,4 @@
-pluginManagement {
+﻿pluginManagement {
   def reactNativeGradlePlugin = new File(
     providers.exec {
       workingDir(rootDir)
@@ -36,8 +36,16 @@ rootProject.name = 'appvendedores'
 expoAutolinking.useExpoVersionCatalog()
 
 include ':app'
-includeBuild(expoAutolinking.reactNativeGradlePlugin)
-apply from: file("../node_modules/expo-modules-autolinking/scripts/autolinking.gradle")
-useExpoModules()
-apply from: file("../node_modules/@react-native-community/cli-platform-android/native_modules.gradle")
+includeBuild(expoAutolinking.reactNativeGradlePlugin)apply from: file("../node_modules/@react-native-community/cli-platform-android/native_modules.gradle")
 applyNativeModulesSettingsGradle(settings)
+
+def expoAuto1 = file("../node_modules/expo-modules-autolinking/scripts/autolinking.gradle")
+def expoAuto2 = file("../node_modules/expo-modules-autolinking/gradle/expo-autolinking.gradle")
+if (expoAuto1.exists()) {
+  apply from: expoAuto1
+} else if (expoAuto2.exists()) {
+  apply from: expoAuto2
+} else {
+  throw new GradleException("Expo autolinking script not found. Checked:  and ")
+}
+useExpoModules()
